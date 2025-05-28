@@ -10,11 +10,11 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop'); /* Contoh background gunung dari Unsplash */
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: #333; /* Default text color for better readability */
+            color: #333;
         }
         .header-title {
             font-family: 'Montserrat', sans-serif;
@@ -32,15 +32,15 @@
             box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
-            backdrop-filter: blur(8px); /* Efek frosted glass */
-            border-radius: 16px; /* Lebih rounded */
+            background-color: rgba(255, 255, 255, 0.97); /* Sedikit lebih solid */
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.25);
         }
         .loader {
-            border: 5px solid #f3f3f3; /* Light grey */
-            border-top: 5px solid #38A169; /* Warna hijau tombol */
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #38A169;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -51,42 +51,32 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .prose-custom ul > li::before {
-            content: "⛰️"; /* Ikon gunung sebagai bullet */
-            margin-right: 0.5em;
-            /* Hapus styling default prose untuk bullet agar bisa dikustomisasi */
-            position: static; 
-            display: inline;
-            width: auto;
-            margin-left: 0;
-        }
-        .prose-custom ul {
-            list-style-type: none; /* Hapus bullet default */
-            padding-left: 0;
-        }
-        .prose-custom ul li {
-            padding-left: 1.5em; /* Beri ruang untuk ikon kustom */
-            position: relative;
-            margin-bottom: 0.5rem;
-        }
-         .prose-custom ul > li::before { /* Atur ulang posisi ikon */
+        .prose-custom ul { list-style-type: none; padding-left: 0; }
+        .prose-custom ul li { padding-left: 1.75em; position: relative; margin-bottom: 0.5rem; }
+        .prose-custom ul li::before {
             content: "⛰️";
             position: absolute;
             left: 0;
-            top: 0.1em; /* Sesuaikan agar sejajar dengan teks */
+            top: 0.1em;
         }
-
         .prose-custom h3, .prose-custom h4 {
             font-family: 'Montserrat', sans-serif;
-            color: #2c5282; /* Biru tua untuk subjudul */
+            color: #2c5282; 
         }
         .footer-credit {
-            background-color: rgba(0,0,0,0.6);
+            background-color: rgba(0,0,0,0.7);
             padding: 1rem;
         }
         .mountain-image {
             border: 3px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .characteristic-item {
+            background-color: #f9fafb; /* Light gray for characteristic items */
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid #e5e7eb;
         }
     </style>
 </head>
@@ -122,17 +112,28 @@
                          onerror="this.onerror=null; this.src='https://placehold.co/600x450/e0e0e0/757575?text=Gambar+Tidak+Tersedia';">
                 </div>
                 <div class="md:col-span-3 prose-custom max-w-none">
-                    <h3 class="text-2xl font-semibold mb-3">📜 Detail Gunung:</h3>
+                    <h3 class="text-2xl font-semibold mb-3">📜 Detail Umum:</h3>
                     <p class="text-base"><strong><i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>Lokasi:</strong> <span id="lokasiGunung" class="text-gray-700"></span></p>
                     <p class="text-base"><strong><i class="fas fa-mountain mr-2 text-blue-600"></i>Ketinggian:</strong> <span id="ketinggianGunung" class="text-gray-700"></span></p>
                     <p class="text-base"><strong><i class="fas fa-motorcycle mr-2 text-blue-600"></i>Estimasi Perjalanan dari UMP ke Basecamp (Motor):</strong> <span id="estimasiPerjalanan" class="text-gray-700"></span></p>
-                    <p class="text-base"><strong><i class="fas fa-campground mr-2 text-blue-600"></i>Basecamp Umum:</strong> <span id="basecampGunung" class="text-gray-700"></span></p>
                 </div>
             </div>
 
             <hr class="my-8 border-gray-300">
 
             <div class="grid md:grid-cols-2 gap-x-10 gap-y-8">
+                <div class="prose-custom max-w-none">
+                    <h3 class="text-2xl font-semibold mb-4"><i class="fas fa-hiking mr-2"></i>Karakteristik Gunung & Jalur:</h3>
+                    <div id="karakteristikGunung" class="space-y-2">
+                        {/* */}
+                    </div>
+                    
+                    <h4 class="text-xl font-semibold mt-6 mb-3"><i class="fas fa-campground mr-2"></i>Basecamp Tersedia:</h4>
+                    <div id="daftarBasecamp" class="space-y-2">
+                        {/* */}
+                    </div>
+                </div>
+                
                 <div class="prose-custom max-w-none">
                     <h3 class="text-2xl font-semibold mb-4"><i class="fas fa-briefcase mr-2"></i>Logistik & Peralatan Umum:</h3>
                     <p class="text-xs italic text-gray-600 mb-4"><strong>Catatan Penting:</strong> Selalu sesuaikan daftar ini dengan spesifikasi gunung, durasi pendakian, cuaca, dan kebutuhan pribadi Anda. Keselamatan adalah prioritas!</p>
@@ -165,27 +166,6 @@
                         <li>Perlengkapan perbaikan (tali, lakban, multitools)</li>
                     </ul>
                 </div>
-
-                <div class="prose-custom max-w-none">
-                    <h3 class="text-2xl font-semibold mb-4"><i class="fas fa-wallet mr-2"></i>Estimasi Biaya Umum (Per Orang):</h3>
-                    <p class="text-xs italic text-gray-600 mb-4"><strong>Disclaimer:</strong> Ini adalah perkiraan kasar. Biaya aktual sangat bervariasi. Lakukan riset detail untuk gunung tujuan!</p>
-                    <ul>
-                        <li>Transportasi (Bensin & Parkir Motor dari UMP): Rp 50.000 - Rp 300.000+</li>
-                        <li>Simaksi/Tiket Masuk: Rp 20.000 - Rp 100.000+ (Taman Nasional/Wisata Alam bisa lebih)</li>
-                        <li>Logistik Makanan & Minuman: Rp 150.000 - Rp 400.000 (2-3 hari)</li>
-                        <li>Sewa Alat (jika perlu, per hari):
-                            <ul>
-                                <li>Tenda (2-3P): Rp 35rb - Rp 70rb</li>
-                                <li>Carrier: Rp 30rb - Rp 60rb</li>
-                                <li>SB & Matras: Rp 20rb - Rp 40rb</li>
-                            </ul>
-                        </li>
-                        <li>Jasa Porter/Guide (opsional): Rp 400rb - Rp 800rb+/hari (dibagi tim)</li>
-                        <li>Donasi Basecamp/Biaya Lain: Rp 10rb - Rp 50rb</li>
-                        <li>Dana Darurat: Rp 100.000 - Rp 250.000</li>
-                    </ul>
-                    <p class="font-semibold mt-4 text-gray-700">Total Estimasi Kasar (Mandiri, Sewa Minim): Rp 300.000 - Rp 1.000.000+</p>
-                </div>
             </div>
         </div>
     </main>
@@ -197,32 +177,236 @@
 
     <script>
         const mountains = [
-            // Data gunung di sini (saya akan menggunakan data dari V2, dan mencoba mencari gambar yang lebih baik jika memungkinkan)
-            // Saya akan mencoba mencari gambar dari Unsplash yang lebih spesifik jika memungkinkan
-            { name: "Gunung Gede", location: "Jawa Barat (TNGGP: Cianjur, Sukabumi, Bogor)", height: "2,958 mdpl", travelTime: "7-9 jam", basecamps: "Cibodas, Gunung Putri, Salabintana", image: "https://images.unsplash.com/photo-1508292398943-332589c17192?q=80&w=870&auto=format&fit=crop" }, // Gede Pangrango National Park
-            { name: "Gunung Pangrango", location: "Jawa Barat (TNGGP: Cianjur, Sukabumi, Bogor)", height: "3,019 mdpl", travelTime: "7-9 jam", basecamps: "Cibodas (via Kandang Badak)", image: "https://images.unsplash.com/photo-1618049907908-34999693013f?q=80&w=870&auto=format&fit=crop" }, // Specific Pangrango
-            { name: "Gunung Ciremai", location: "Jawa Barat (TNGC: Kuningan, Majalengka)", height: "3,078 mdpl", travelTime: "4-5 jam", basecamps: "Apuy, Palutungan, Linggarjati, Linggasana", image: "https://images.unsplash.com/photo-1604872744159-b1c7eae20951?q=80&w=870&auto=format&fit=crop" }, // Ciremai
-            { name: "Gunung Papandayan", location: "Jawa Barat (TWA: Garut)", height: "2,665 mdpl", travelTime: "7-8 jam", basecamps: "Camp David (Cisurupan)", image: "https://images.unsplash.com/photo-1589338039799-000369002074?q=80&w=870&auto=format&fit=crop" }, // Papandayan Crater
-            { name: "Gunung Cikuray", location: "Jawa Barat (Garut)", height: "2,821 mdpl", travelTime: "7-8 jam", basecamps: "Pemancar (Cilawu), Bayongbong, Cikajang", image: "https://images.unsplash.com/photo-1627859925968-a300676a8f9f?q=80&w=870&auto=format&fit=crop" }, // Cikuray
-            { name: "Gunung Slamet", location: "Jawa Tengah (Purbalingga, Banyumas, Brebes, Tegal, Pemalang)", height: "3,428 mdpl", travelTime: "1.5-2.5 jam", basecamps: "Bambangan (Purbalingga), Guci (Tegal), Kaliwadas (Brebes)", image: "https://images.unsplash.com/photo-1609497999380-382752e9c97c?q=80&w=870&auto=format&fit=crop" }, // Slamet
-            { name: "Gunung Sindoro", location: "Jawa Tengah (Temanggung, Wonosobo)", height: "3,153 mdpl", travelTime: "3-4 jam", basecamps: "Kledung (Temanggung), Sigedang (Wonosobo), Alang-alang Sewu (Wonosobo)", image: "https://images.unsplash.com/photo-1604925796031-27c799079960?q=80&w=870&auto=format&fit=crop" }, // Sindoro (sudah ada)
-            { name: "Gunung Sumbing", location: "Jawa Tengah (Magelang, Temanggung, Wonosobo)", height: "3,371 mdpl", travelTime: "3-4 jam", basecamps: "Garung (Wonosobo), Bowongso (Wonosobo), Kaliangkrik (Magelang), Butuh (Magelang - Nepal van Java)", image: "https://images.unsplash.com/photo-1593323084867-73708839d3a9?q=80&w=870&auto=format&fit=crop" }, // Sumbing (sudah ada, mungkin tertukar dengan Sindoro sebelumnya)
-            { name: "Gunung Merbabu", location: "Jawa Tengah (TNGMb: Magelang, Boyolali, Semarang)", height: "3,145 mdpl", travelTime: "3.5-5 jam", basecamps: "Selo (Boyolali), Suwanting (Magelang), Wekas (Magelang), Cuntel (Semarang), Thekelan (Semarang)", image: "https://images.unsplash.com/photo-1579493001936-310f736b0155?q=80&w=870&auto=format&fit=crop" }, // Merbabu (sudah ada)
-            { name: "Gunung Prau", location: "Jawa Tengah (Dataran Tinggi Dieng: Wonosobo, Kendal, Batang)", height: "2,590 mdpl", travelTime: "3.5-4.5 jam", basecamps: "Patak Banteng (Wonosobo), Dieng (Wonosobo), Kalilembu (Wonosobo), Wates (Temanggung)", image: "https://images.unsplash.com/photo-1580777207895-60309a057c0a?q=80&w=870&auto=format&fit=crop" }, // Prau Dieng
-            { name: "Gunung Ungaran", location: "Jawa Tengah (Kab. Semarang)", height: "2,050 mdpl", travelTime: "4-5 jam", basecamps: "Mawar (Jimbaran), Promasan (Ngesrep Balong - via Kebun Teh Medini)", image: "https://images.unsplash.com/photo-1622611417100-996100038817?q=80&w=870&auto=format&fit=crop" }, // Ungaran
-            { name: "Gunung Andong", location: "Jawa Tengah (Magelang)", height: "1,726 mdpl", travelTime: "3-4 jam", basecamps: "Sawit (Ngablak), Pendem (Gogik)", image: "https://images.unsplash.com/photo-1606047035060-adaa517bf998?q=80&w=870&auto=format&fit=crop" }, // Andong
-            { name: "Gunung Telomoyo", location: "Jawa Tengah (Kab. Semarang, Magelang)", height: "1,894 mdpl", travelTime: "3.5-4.5 jam", basecamps: "Dalangan (bisa naik motor/mobil sampai area dekat puncak), Pagergedog (jalur pendakian)", image: "https://images.unsplash.com/photo-1621905963436-aff0de8c65c6?q=80&w=870&auto=format&fit=crop" }, // Telomoyo (sudah ada)
-            { name: "Gunung Semeru", location: "Jawa Timur (TNBTS: Malang, Lumajang)", height: "3,676 mdpl", travelTime: "9-11 jam", basecamps: "Ranu Pani (Lumajang)", image: "https://images.unsplash.com/photo-1588659820034-3199003ba86a?q=80&w=870&auto=format&fit=crop" }, // Semeru (sudah ada)
-            { name: "Gunung Arjuno", location: "Jawa Timur (Tahura R. Soerjo: Malang, Pasuruan)", height: "3,339 mdpl", travelTime: "8-10 jam", basecamps: "Tretes (Pasuruan), Lawang (Malang), Sumberbrantas (Batu), Purwosari (Pasuruan)", image: "https://images.unsplash.com/photo-1608280044380-ccc350f7f720?q=80&w=870&auto=format&fit=crop" }, // Arjuno (sudah ada)
-            { name: "Gunung Welirang", location: "Jawa Timur (Tahura R. Soerjo: Malang, Pasuruan, Mojokerto)", height: "3,156 mdpl", travelTime: "8-10 jam", basecamps: "Tretes (Pasuruan), Cangar (Batu), Pacet (Mojokerto)", image: "https://images.unsplash.com/photo-1612106912139-7a9914097403?q=80&w=870&auto=format&fit=crop" }, // Welirang (sudah ada)
-            { name: "Gunung Raung", location: "Jawa Timur (Banyuwangi, Bondowoso, Jember)", height: "3,332 mdpl (Puncak Sejati)", travelTime: "11-13 jam", basecamps: "Kalibaru (Banyuwangi - jalur ekstrem), Sumberwringin (Bondowoso)", image: "https://images.unsplash.com/photo-1604733637885-79f076f8198b?q=80&w=870&auto=format&fit=crop" }, // Raung (sudah ada)
-            { name: "Gunung Argopuro", location: "Jawa Timur (Suaka Margasatwa Dataran Tinggi Hyang: Probolinggo, Situbondo, Jember)", height: "3,088 mdpl", travelTime: "10-12 jam", basecamps: "Baderan (Situbondo), Bremi (Probolinggo)", image: "https://images.unsplash.com/photo-1620201904007-379690998637?q=80&w=870&auto=format&fit=crop" }, // Argopuro (sudah ada)
-            { name: "Kawah Ijen", location: "Jawa Timur (TWA: Banyuwangi, Bondowoso)", height: "2,799 mdpl (bibir kaldera)", travelTime: "12-14 jam", basecamps: "Paltuding (Bondowoso/Banyuwangi)", image: "https://images.unsplash.com/photo-1528428054573-8c6091cb775c?q=80&w=870&auto=format&fit=crop" }, // Ijen (sudah ada)
-            { name: "Gunung Penanggungan", location: "Jawa Timur (Mojokerto, Pasuruan)", height: "1,653 mdpl", travelTime: "8-9 jam", basecamps: "Tamiajeng (Trawas), Jolotundo (Trawas), Ngoro (Mojokerto)", image: "https://images.unsplash.com/photo-1611127808394-9911023e7c77?q=80&w=870&auto=format&fit=crop" }, // Penanggungan (sudah ada)
-            { name: "Gunung Lawu", location: "Perbatasan Jawa Tengah & Jawa Timur (Karanganyar, Magetan)", height: "3,265 mdpl", travelTime: "5-6 jam", basecamps: "Cemoro Sewu (Magetan), Cemoro Kandang (Karanganyar), Candi Cetho (Karanganyar)", image: "https://images.unsplash.com/photo-1597463109758-14595181aa9a?q=80&w=870&auto=format&fit=crop" }, // Lawu (sudah ada)
-            { name: "Gunung Butak", location: "Jawa Timur (Malang, Blitar)", height: "2,868 mdpl", travelTime: "8-10 jam", basecamps: "Sirah Kencong (Blitar - via Kebun Teh), Panderman (Batu)", image: "https://images.unsplash.com/photo-1603764341986-c597853a2053?q=80&w=870&auto=format&fit=crop" } // Butak (mencari gambar baru)
+            { 
+                name: "Gunung Gede", 
+                location: "Jawa Barat (TNGGP: Cianjur, Sukabumi, Bogor)", 
+                height: "2,958 mdpl", 
+                travelTime: "7-9 jam", 
+                basecampsDetail: [
+                    { name: "Cibodas", jalur: "Selatan", notes: "Populer, fasilitas lengkap, via air terjun & air panas." },
+                    { name: "Gunung Putri", jalur: "Timur", notes: "Lebih pendek, curam di awal, langsung ke Suryakencana." },
+                    { name: "Salabintana", jalur: "Barat", notes: "Jalur terpanjang, lebih liar." }
+                ], 
+                image: "https://images.unsplash.com/photo-1508292398943-332589c17192?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano kembar (dengan Pangrango)",
+                    "Kondisi Jalur: Bervariasi (tanah, batu, akar), hutan lebat, padang edelweiss (Suryakencana)",
+                    "Sumber Air: Cukup tersedia di beberapa pos (Cibodas), terbatas di jalur lain.",
+                    "Keunikan: Kawah aktif, Alun-alun Suryakencana (padang edelweiss), sumber air panas, keanekaragaman hayati TNGGP.",
+                    "Tingkat Kesulitan: Menengah"
+                ]
+            },
+            { 
+                name: "Gunung Pangrango", 
+                location: "Jawa Barat (TNGGP: Cianjur, Sukabumi, Bogor)", 
+                height: "3,019 mdpl", 
+                travelTime: "7-9 jam", 
+                basecampsDetail: [
+                    { name: "Cibodas", jalur: "Selatan (via Kandang Badak)", notes: "Umumnya didaki bersamaan atau setelah Gede." }
+                ], 
+                image: "https://images.unsplash.com/photo-1618049907908-34999693013f?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano (bagian dari kompleks Gede-Pangrango)",
+                    "Kondisi Jalur: Hutan lebat, lembab, puncak berbatu.",
+                    "Sumber Air: Tersedia di Kandang Badak.",
+                    "Keunikan: Lembah Mandalawangi (keramat), puncak tertinggi di TNGGP, hutan lumut.",
+                    "Tingkat Kesulitan: Menengah - Sulit"
+                ]
+            },
+            { 
+                name: "Gunung Ciremai", 
+                location: "Jawa Barat (TNGC: Kuningan, Majalengka)", 
+                height: "3,078 mdpl", 
+                travelTime: "4-5 jam", 
+                basecampsDetail: [
+                    { name: "Apuy", jalur: "Barat (Majalengka)", notes: "Jalur terpendek, populer." },
+                    { name: "Palutungan", jalur: "Selatan (Kuningan)", notes: "Jalur landai di awal, melewati hutan." },
+                    { name: "Linggarjati", jalur: "Timur (Kuningan)", notes: "Jalur bersejarah, lebih panjang." },
+                    { name: "Linggasana", jalur: "Timur Laut (Kuningan)", notes: "Jalur alternatif." }
+                ], 
+                image: "https://images.unsplash.com/photo-1604872744159-b1c7eae20951?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano aktif, gunung tertinggi di Jawa Barat.",
+                    "Kondisi Jalur: Bervariasi (tanah, batu), hutan pinus, vegetasi rapat.",
+                    "Sumber Air: Terbatas, perlu manajemen air yang baik.",
+                    "Keunikan: Kawah ganda di puncak, pemandangan luas, keanekaragaman hayati TNGC.",
+                    "Tingkat Kesulitan: Menengah - Sulit"
+                ]
+            },
+            { 
+                name: "Gunung Papandayan", 
+                location: "Jawa Barat (TWA: Garut)", 
+                height: "2,665 mdpl", 
+                travelTime: "7-8 jam", 
+                basecampsDetail: [
+                    { name: "Camp David (Cisurupan)", jalur: "Utama", notes: "Akses mudah, area parkir luas, cocok untuk pemula." }
+                ], 
+                image: "https://images.unsplash.com/photo-1589338039799-000369002074?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Kompleks stratovolcano aktif.",
+                    "Kondisi Jalur: Relatif mudah, melewati kawah aktif, hutan mati, padang edelweiss (Tegal Alun).",
+                    "Sumber Air: Tersedia di beberapa titik.",
+                    "Keunikan: Kawah belerang aktif, Pondok Salada (camping ground), Hutan Mati, Tegal Alun (padang edelweiss).",
+                    "Tingkat Kesulitan: Pemula - Menengah"
+                ]
+            },
+            { 
+                name: "Gunung Slamet", 
+                location: "Jawa Tengah (Purbalingga, Banyumas, Brebes, Tegal, Pemalang)", 
+                height: "3,428 mdpl", 
+                travelTime: "1.5-2.5 jam", 
+                basecampsDetail: [
+                    { name: "Bambangan (Purbalingga)", jalur: "Selatan", notes: "Jalur paling populer dan 'resmi'."},
+                    { name: "Guci (Tegal)", jalur: "Utara", notes: "Jalur lebih panjang, via pemandian air panas Guci."},
+                    { name: "Kaliwadas (Brebes)", jalur: "Barat Laut", notes: "Jalur alternatif, menantang."}
+                ], 
+                image: "https://images.unsplash.com/photo-1609497999380-382752e9c97c?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano aktif, gunung tertinggi di Jawa Tengah.",
+                    "Kondisi Jalur: Menantang, vegetasi rapat di awal, medan terbuka berbatu menuju puncak.",
+                    "Sumber Air: Terbatas di pos atas, perlu membawa cukup persediaan.",
+                    "Keunikan: Kawah Segara Wedi yang luas di puncak, sering berkabut.",
+                    "Tingkat Kesulitan: Sulit"
+                ]
+            },
+            { 
+                name: "Gunung Sindoro", 
+                location: "Jawa Tengah (Temanggung, Wonosobo)", 
+                height: "3,153 mdpl", 
+                travelTime: "3-4 jam", 
+                basecampsDetail: [
+                    { name: "Kledung (Temanggung)", jalur: "Selatan", notes: "Populer, berdampingan dengan basecamp Sumbing."},
+                    { name: "Sigedang (Wonosobo)", jalur: "Utara", notes: "Via kebun teh Tambi."},
+                    { name: "Alang-alang Sewu (Wonosobo)", jalur: "Barat Laut", notes: "Jalur baru, pemandangan bagus."}
+                ], 
+                image: "https://images.unsplash.com/photo-1604925796031-27c799079960?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano aktif (istirahat).",
+                    "Kondisi Jalur: Tanah, batu, melewati hutan dan ladang tembakau.",
+                    "Sumber Air: Terbatas, biasanya di pos bawah.",
+                    "Keunikan: Kawah kembar (Segara Wedi & Segara Banjaran), padang edelweiss, pemandangan Sumbing.",
+                    "Tingkat Kesulitan: Menengah"
+                ]
+            },
+             { 
+                name: "Gunung Sumbing", 
+                location: "Jawa Tengah (Magelang, Temanggung, Wonosobo)", 
+                height: "3,371 mdpl", 
+                travelTime: "3-4 jam", 
+                basecampsDetail: [
+                    { name: "Garung (Wonosobo)", jalur: "Utara", notes: "Populer, via Kledung Pass."},
+                    { name: "Bowongso (Wonosobo)", jalur: "Barat", notes: "Jalur lebih sepi."},
+                    { name: "Kaliangkrik (Magelang)", jalur: "Selatan", notes: "Pemandangan bagus, 'Nepal van Java'."},
+                    { name: "Butuh (Magelang)", jalur: "Selatan", notes: "Dekat dengan Kaliangkrik, pemandangan serupa."}
+                ], 
+                image: "https://images.unsplash.com/photo-1593323084867-73708839d3a9?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano aktif (istirahat).",
+                    "Kondisi Jalur: Panjang dan menantang, bervariasi (tanah, batu, pasir).",
+                    "Sumber Air: Terbatas, perlu manajemen yang baik.",
+                    "Keunikan: Kawah luas di puncak, pemandangan Sindoro dan Merbabu-Merapi, jalur yang beragam.",
+                    "Tingkat Kesulitan: Sulit"
+                ]
+            },
+            { 
+                name: "Gunung Merbabu", 
+                location: "Jawa Tengah (TNGMb: Magelang, Boyolali, Semarang)", 
+                height: "3,145 mdpl", 
+                travelTime: "3.5-5 jam", 
+                basecampsDetail: [
+                    { name: "Selo (Boyolali)", jalur: "Selatan", notes: "Populer, pemandangan Merapi jelas."},
+                    { name: "Suwanting (Magelang)", jalur: "Barat", notes: "Menantang, tanjakan curam."},
+                    { name: "Wekas (Magelang)", jalur: "Barat Laut", notes: "Lebih pendek, curam."},
+                    { name: "Cuntel (Semarang)", jalur: "Utara", notes: "Jalur lama, hutan."},
+                    { name: "Thekelan (Semarang)", jalur: "Timur Laut", notes: "Alternatif dari utara."}
+                ], 
+                image: "https://images.unsplash.com/photo-1579493001936-310f736b0155?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano (istirahat).",
+                    "Kondisi Jalur: Sabana luas, hutan pinus, jalur yang terpelihara baik.",
+                    "Sumber Air: Tersedia di beberapa pos (tergantung jalur).",
+                    "Keunikan: Sabana yang indah (Sabana 1 & 2 via Selo), beberapa puncak (Kenteng Songo, Triangulasi, Syarif), pemandangan gunung-gunung lain.",
+                    "Tingkat Kesulitan: Menengah"
+                ]
+            },
+            { 
+                name: "Gunung Prau", 
+                location: "Jawa Tengah (Dataran Tinggi Dieng: Wonosobo, Kendal, Batang)", 
+                height: "2,590 mdpl", 
+                travelTime: "3.5-4.5 jam", 
+                basecampsDetail: [
+                    { name: "Patak Banteng (Wonosobo)", jalur: "Selatan", notes: "Paling populer, jalur cepat."},
+                    { name: "Dieng (Wonosobo)", jalur: "Timur", notes: "Lebih landai, melewati area wisata Dieng."},
+                    { name: "Kalilembu (Wonosobo)", jalur: "Barat", notes: "Jalur alternatif."},
+                    { name: "Wates (Temanggung)", jalur: "Selatan", notes: "Jalur lain dari sisi selatan."}
+                ], 
+                image: "https://images.unsplash.com/photo-1580777207895-60309a057c0a?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Gunung non-vulkanik (bagian dari kompleks Dieng).",
+                    "Kondisi Jalur: Relatif pendek, cocok untuk pemula, bisa ramai saat akhir pekan.",
+                    "Sumber Air: Terbatas di jalur, biasanya bawa dari basecamp.",
+                    "Keunikan: Golden sunrise terbaik, pemandangan Sindoro-Sumbing, bukit Teletubbies, camping ground luas di puncak.",
+                    "Tingkat Kesulitan: Pemula"
+                ]
+            },
+            { 
+                name: "Gunung Semeru", 
+                location: "Jawa Timur (TNBTS: Malang, Lumajang)", 
+                height: "3,676 mdpl", 
+                travelTime: "9-11 jam", 
+                basecampsDetail: [
+                    { name: "Ranu Pani (Lumajang)", jalur: "Utara", notes: "Satu-satunya jalur resmi."}
+                ], 
+                image: "https://images.unsplash.com/photo-1588659820034-3199003ba86a?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano aktif, gunung tertinggi di Pulau Jawa.",
+                    "Kondisi Jalur: Panjang, beragam (hutan, danau, sabana, medan pasir vulkanik).",
+                    "Sumber Air: Tersedia di Ranu Kumbolo dan Sumbermani (dekat Kalimati).",
+                    "Keunikan: Puncak Mahameru, Ranu Kumbolo, Tanjakan Cinta, Oro-oro Ombo, Kalimati, aktivitas vulkanik (letusan periodik).",
+                    "Tingkat Kesulitan: Sulit - Ekstrem (terutama summit attack)"
+                ]
+            },
+            { 
+                name: "Gunung Arjuno", 
+                location: "Jawa Timur (Tahura R. Soerjo: Malang, Pasuruan)", 
+                height: "3,339 mdpl", 
+                travelTime: "8-10 jam", 
+                basecampsDetail: [
+                    { name: "Tretes (Pasuruan)", jalur: "Utara", notes: "Populer, bisa lanjut ke Welirang."},
+                    { name: "Lawang (Malang)", jalur: "Timur", notes: "Jalur lebih panjang."},
+                    { name: "Sumberbrantas (Batu)", jalur: "Barat", notes: "Jalur alternatif."},
+                    { name: "Purwosari (Pasuruan)", jalur: "Utara", notes: "Jalur spiritual, banyak petilasan."}
+                ], 
+                image: "https://images.unsplash.com/photo-1608280044380-ccc350f7f720?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano (istirahat).",
+                    "Kondisi Jalur: Panjang, hutan lebat, sabana, banyak situs petilasan.",
+                    "Sumber Air: Tergantung jalur, beberapa pos memiliki sumber air.",
+                    "Keunikan: Puncak Ogal-agil, Gunung Kembar I & II, Alas Lali Jiwo (hutan berkabut), nilai sejarah dan spiritual.",
+                    "Tingkat Kesulitan: Sulit"
+                ]
+            },
+            { 
+                name: "Gunung Lawu", 
+                location: "Perbatasan Jawa Tengah & Jawa Timur (Karanganyar, Magetan)", 
+                height: "3,265 mdpl", 
+                travelTime: "5-6 jam", 
+                basecampsDetail: [
+                    { name: "Cemoro Sewu (Magetan, Jatim)", jalur: "Barat", notes: "Jalur paling populer, lebih cepat."},
+                    { name: "Cemoro Kandang (Karanganyar, Jateng)", jalur: "Barat", notes: "Jalur lebih landai, lebih panjang."},
+                    { name: "Candi Cetho (Karanganyar, Jateng)", jalur: "Utara", notes: "Jalur spiritual, melewati candi."}
+                ], 
+                image: "https://images.unsplash.com/photo-1597463109758-14595181aa9a?q=80&w=870&auto=format&fit=crop",
+                characteristics: [
+                    "Tipe: Stratovolcano (istirahat).",
+                    "Kondisi Jalur: Bervariasi, hutan pinus, sabana, banyak warung di jalur Cemoro Sewu.",
+                    "Sumber Air: Tersedia di beberapa titik, termasuk Sendang Drajat.",
+                    "Keunikan: Puncak Hargo Dumilah, nilai spiritual tinggi, Candi Cetho & Sukuh di lereng, warung Mbok Yem.",
+                    "Tingkat Kesulitan: Menengah"
+                ]
+            }
+            // Tambahkan lebih banyak data gunung di sini
         ];
-
 
         const acakButton = document.getElementById('acakButton');
         const hasilGunungDiv = document.getElementById('hasilGunung');
@@ -232,10 +416,58 @@
         const lokasiGunungEl = document.getElementById('lokasiGunung');
         const ketinggianGunungEl = document.getElementById('ketinggianGunung');
         const estimasiPerjalananEl = document.getElementById('estimasiPerjalanan');
-        const basecampGunungEl = document.getElementById('basecampGunung');
         const gambarGunungEl = document.getElementById('gambarGunung');
+        const karakteristikGunungEl = document.getElementById('karakteristikGunung');
+        const daftarBasecampEl = document.getElementById('daftarBasecamp');
         
         document.getElementById('tahun').textContent = new Date().getFullYear();
+
+        function displaySelectedMountain(selectedMountain) {
+            namaGunungEl.textContent = selectedMountain.name;
+            lokasiGunungEl.textContent = selectedMountain.location;
+            ketinggianGunungEl.textContent = selectedMountain.height;
+            estimasiPerjalananEl.textContent = selectedMountain.travelTime;
+            
+            gambarGunungEl.src = selectedMountain.image || 'https://placehold.co/600x450/e0e0e0/757575?text=Gambar+Tidak+Tersedia';
+            gambarGunungEl.alt = `Foto Pemandangan ${selectedMountain.name}`;
+
+            // Tampilkan Karakteristik
+            karakteristikGunungEl.innerHTML = ''; // Kosongkan dulu
+            if (selectedMountain.characteristics && selectedMountain.characteristics.length > 0) {
+                selectedMountain.characteristics.forEach(char => {
+                    const charItem = document.createElement('div');
+                    charItem.className = 'characteristic-item text-sm text-gray-700';
+                    charItem.innerHTML = `<i class="fas fa-check-circle text-green-500 mr-2"></i>${char}`;
+                    karakteristikGunungEl.appendChild(charItem);
+                });
+            } else {
+                karakteristikGunungEl.innerHTML = '<p class="text-sm text-gray-500">Informasi karakteristik belum tersedia.</p>';
+            }
+
+            // Tampilkan Daftar Basecamp
+            daftarBasecampEl.innerHTML = ''; // Kosongkan dulu
+            if (selectedMountain.basecampsDetail && selectedMountain.basecampsDetail.length > 0) {
+                selectedMountain.basecampsDetail.forEach(bc => {
+                    const bcItem = document.createElement('div');
+                    bcItem.className = 'characteristic-item text-sm'; // Menggunakan style yang sama dengan karakteristik
+                    bcItem.innerHTML = `
+                        <p class="font-semibold text-gray-800">${bc.name} <span class="text-xs text-gray-500">(${bc.jalur})</span></p>
+                        <p class="text-xs text-gray-600">${bc.notes}</p>
+                    `;
+                    daftarBasecampEl.appendChild(bcItem);
+                });
+            } else {
+                daftarBasecampEl.innerHTML = '<p class="text-sm text-gray-500">Informasi basecamp belum tersedia.</p>';
+            }
+
+            loadingIndicator.classList.add('hidden');
+            hasilGunungDiv.classList.remove('hidden');
+            
+            acakButton.disabled = false;
+            acakButton.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            hasilGunungDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
         acakButton.addEventListener('click', () => {
             hasilGunungDiv.classList.add('hidden');
@@ -243,33 +475,13 @@
             acakButton.disabled = true;
             acakButton.classList.add('opacity-50', 'cursor-not-allowed');
 
-            // Animasi scroll ke loading indicator jika perlu
             loadingIndicator.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             setTimeout(() => {
                 const randomIndex = Math.floor(Math.random() * mountains.length);
                 const selectedMountain = mountains[randomIndex];
-
-                namaGunungEl.textContent = selectedMountain.name;
-                lokasiGunungEl.textContent = selectedMountain.location;
-                ketinggianGunungEl.textContent = selectedMountain.height;
-                estimasiPerjalananEl.textContent = selectedMountain.travelTime;
-                basecampGunungEl.textContent = selectedMountain.basecamps;
-                
-                // Log URL gambar ke konsol untuk debugging
-                console.log("Selected mountain image URL:", selectedMountain.image); 
-
-                gambarGunungEl.src = selectedMountain.image || 'https://placehold.co/600x450/e0e0e0/757575?text=Gambar+Tidak+Tersedia';
-                gambarGunungEl.alt = `Foto Pemandangan ${selectedMountain.name}`;
-
-                loadingIndicator.classList.add('hidden');
-                hasilGunungDiv.classList.remove('hidden');
-                
-                acakButton.disabled = false;
-                acakButton.classList.remove('opacity-50', 'cursor-not-allowed');
-
-                hasilGunungDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 1500); // Durasi loading sedikit lebih lama untuk efek
+                displaySelectedMountain(selectedMountain);
+            }, 1500);
         });
     </script>
 </body>
